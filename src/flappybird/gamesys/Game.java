@@ -12,6 +12,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWvidmode;
 import org.lwjgl.openal.ALContext;
+import org.lwjgl.openal.ALDevice;
 import org.lwjgl.opengl.GL;
 
 import flappybird.util.Input;
@@ -25,7 +26,7 @@ public class Game implements Runnable {
 	private GLFWKeyCallback keyCallback;
 	private GLFWErrorCallback errorCallback;
 	
-	private ALContext alContext;
+	
 	
 	public Game() {
 	}
@@ -72,7 +73,8 @@ public class Game implements Runnable {
 		init();
 		
 		// OpenAL
-		alContext = ALContext.create();
+		ALDevice device = ALDevice.create();		
+		ALContext alContext = ALContext.create(device);
 		
 		// OpneGL
 		GL.createCapabilities();
@@ -108,6 +110,7 @@ public class Game implements Runnable {
 		gameManager.cleanUp();
 		
 		alContext.destroy();
+		device.destroy();
 		
 		try {
 			glfwDestroyWindow(windowID);

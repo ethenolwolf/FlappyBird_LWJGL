@@ -13,3 +13,6 @@ hs_err_pid*
 
 # native files for LWJGL
 native
+
+.classpath
+/bin/
